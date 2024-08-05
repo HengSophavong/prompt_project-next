@@ -4,6 +4,8 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Form from "@components/Form";
 
+
+
 const UpdatePromptComponent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -14,17 +16,24 @@ const UpdatePromptComponent = () => {
 
   useEffect(() => {
     const getPromptDetails = async () => {
-      const response = await fetch(`/api/prompt/${promptId}`);
-      const data = await response.json();
-
-      setPost({
-        prompt: data.prompt,
-        tag: data.tag,
-      });
+      try {
+        const response = await fetch(`/api/prompt/${promptId}`);
+        const data = await response.json();
+  
+        console.log('Fetched prompt details:', data);
+  
+        setPost({
+          prompt: data.prompt,
+          tag: data.tag,
+        });
+      } catch (error) {
+        console.error('Error fetching prompt details:', error);
+      }
     };
-
+  
     if (promptId) getPromptDetails();
   }, [promptId]);
+  
 
   const handleUpdatePrompt = async (e) => {
     e.preventDefault();
