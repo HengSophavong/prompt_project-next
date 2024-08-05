@@ -59,4 +59,4 @@ const EditPrompt = () => {
   );
 };
 
-export default EditPrompt;
+export default UpdatePrompt;
